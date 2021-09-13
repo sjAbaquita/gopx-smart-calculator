@@ -1,0 +1,28 @@
+.smart-calculator-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.smart-calculator-container .calculator-input {
+    display: grid;
+}
+.smart-calculator-container .display-container {
+    border: solid #333 2px;
+    padding: 20px;
+    text-align: center;
+}
+.smart-calculator-container .calculator-input input[type=text], select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+.smart-calculator-container .display-container #display-value {
+    font-size: 38px;
+    margin: 0;
+}
+@media (max-width: 800px) {
+    .smart-calculator-container {
+        display: block;
+    }
+}
