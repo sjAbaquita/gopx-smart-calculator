@@ -6,41 +6,52 @@
 (function ( $ ) {
 
     $.fn.smartCalculator = function(options) {
-        // var input_date = {
-        //     0: {
-        //         value: 1,
-        //         text: 'June 21, 2021 - November 30, 2021'
-        //     },
-        //     1: {
-        //         value: 20,
-        //         text: 'December 1, 2021 - February 28, 2022'
-        //     },
-        //     2: {
-        //         value: 100,
-        //         text: 'March 1, 2022 - May 31, 2022'
-        //     },
-        //     3: {
-        //         value: 500,
-        //         text: 'June 1, 2022 - May 31, 2023'
-        //     },
-        //     4: {
-        //         value: 2500,
-        //         text: 'June 1, 2023 - Open Market'
-        //     },
-        // }
+
+        var logos = [
+            {
+                url: 'images/ms-pixy.png',
+                alt_text: 'Ms Pixy'
+            },
+            {
+                url: 'images/gopx-logo.png',
+                alt_text: 'GOPX Token'
+            }
+        ];
+
+        var input_date = [
+            { 
+                value: 1,
+                text: 'June 21, 2021 - November 30, 2021'
+            },
+            { 
+                value: 20,
+                text: 'December 1, 2021 - February 28, 2022'
+            },
+            { 
+                value: 100,
+                text: 'March 1, 2022 - May 31, 2022'
+            },
+            { 
+                value: 500,
+                text: 'June 1, 2022 - May 31, 2023'
+            },
+            { 
+                value: 2500,
+                text: 'June 1, 2023 - Open Market'
+            }
+        ];
+
         var settings = $.extend({
+            header: 'GOPX Calculator',
+            sidebar_text: 'TheGOPXtoken.com',
+            logos: logos,
             label: {
                 amount: 'How much token do you want to sell?',
                 date: 'When would you like to sell the token?',
                 total: 'Total value'
             },
-            // date_ : input_date
+            date_ : input_date
         }, options );
-
-        // var options_data = '';
-        // Object.keys(settings.date_).forEach(function(key) {
-        //     options_data += '<option value="'+settings.date_[key].value+'" selected>'+settings.date_[key].text+'</option>';
-        // });
 
 
         //
@@ -49,32 +60,43 @@
         var value = 0;
 
         this.init = function() {
+            
+            //logos
+            var logos_data = '';
+            settings.logos.forEach(e => {
+                logos_data += '<img src="'+e.url+'" alt="'+e.alt_text+'"></img>';
+            });
+
+            //options
+            var options_data = '';
+            settings.date_.forEach(e => {
+                options_data += '<option value="'+e.value+'" '+ (settings.date_[0].value == e.value ? 'selected' : '') +'>'+e.text+'</option>';
+            });
+
             this.append(
                 `<div class="smart-calculator-container">
                     <div class="calculator-left">
-                        <h2>TheGOPXtoken.com</h2>
+                        <h2>`+settings.sidebar_text+`</h2>
                     </div>
                     <div class="calculator-right">
                         <div class="calculator-header">
-                            <h2>GOPX Calculator</h2>
+                            <h2>`+settings.header+`</h2>
                             <div class="calculator-logo">
-                                <img src="images/ms-pixy.png" alt="Ms Pixy">
-                                <img src="images/gopx-logo.png" alt="GOPX Token">
+                                `+logos_data+`
                             </div>
                         </div>
                         <div class="calculator-form">
                             <div class="calculator-input">
                                 <label for="fname">`+settings.label.amount+`</label>
-                                <input type="text" id="amount" name="amount">
+                                <div class="calculator-group">
+                                    <input class="calculator-field" type="text" id="amount" name="amount">
+                                    <span></span>
+                                </div>
                             </div>
                             <div class="calculator-input">
                                 <label for="lname">`+settings.label.date+`</label>
                                 <select name="date" id="date">
-                                    <option value="1" selected>June 21, 2021 - November 30, 2021</option>
-                                    <option value="20">December 1, 2021 - February 28, 2022</option>
-                                    <option value="100">March 1, 2022 - May 31, 2022</option>
-                                    <option value="500">June 1, 2022 - May 31, 2023</option>
-                                    <option value="2500">June 1, 2023 - Open Market</option>
+                                    `+options_data+`
                                 </select>
                             </div>
                             <div class="display-container">
