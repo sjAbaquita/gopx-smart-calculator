@@ -46,23 +46,37 @@
         this.init = function() {
             this.append(
                 `<div class="smart-calculator-container">
-                    <div class="calculator-input">
-                        <label for="fname">`+settings.label.amount+`</label>
-                        <input type="text" id="amount" name="amount"><br><br>
+                    <div class="calculator-left">
+                        <h2>TheGOPXtoken.com</h2>
                     </div>
-                    <div class="calculator-input">
-                        <label for="lname">`+settings.label.date+`</label>
-                        <select name="date" id="date">
-                            <option value="1" selected>June 21, 2021 - November 30, 2021</option>
-                            <option value="20">December 1, 2021 - February 28, 2022</option>
-                            <option value="100">March 1, 2022 - May 31, 2022</option>
-                            <option value="500">June 1, 2022 - May 31, 2023</option>
-                            <option value="2500">June 1, 2023 - Open Market</option>
-                        </select><br><br>
-                    </div>
-                    <div class="display-container">
-                        <p id="display-value"></p>
-                        <p>`+settings.label.total+`</p>
+                    <div class="calculator-right">
+                        <div class="calculator-header">
+                            <h2>GOPX Calculator</h2>
+                            <div class="calculator-logo">
+                                <img src="images/ms-pixy.png" alt="Ms Pixy">
+                                <img src="images/gopx-logo.png" alt="GOPX Token">
+                            </div>
+                        </div>
+                        <div class="calculator-form">
+                            <div class="calculator-input">
+                                <label for="fname">`+settings.label.amount+`</label>
+                                <input type="text" id="amount" name="amount">
+                            </div>
+                            <div class="calculator-input">
+                                <label for="lname">`+settings.label.date+`</label>
+                                <select name="date" id="date">
+                                    <option value="1" selected>June 21, 2021 - November 30, 2021</option>
+                                    <option value="20">December 1, 2021 - February 28, 2022</option>
+                                    <option value="100">March 1, 2022 - May 31, 2022</option>
+                                    <option value="500">June 1, 2022 - May 31, 2023</option>
+                                    <option value="2500">June 1, 2023 - Open Market</option>
+                                </select>
+                            </div>
+                            <div class="display-container">
+                                <p id="display-value"></p>
+                                <p>`+settings.label.total+`</p>
+                            </div>
+                        </div>
                     </div>
                 </div>`
             )
@@ -85,7 +99,7 @@
 
             (!$.isNumeric(amount) ? value = 0 : value = amount*date_value)
 
-            $('#display-value').text(value);
+            $('#display-value').html('<small>$</small>'+value);
         }
 
         return this.init();
