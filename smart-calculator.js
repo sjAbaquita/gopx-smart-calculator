@@ -1,3 +1,8 @@
+/**
+ * Author: Seth
+ */
+
+
 (function ( $ ) {
 
     $.fn.smartCalculator = function(options) {
