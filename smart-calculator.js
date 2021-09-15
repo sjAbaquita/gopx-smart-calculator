@@ -99,6 +99,13 @@
                                     `+options_data+`
                                 </select>
                             </div>
+                                <ol id="calculator-progress-bar" class="calculator-progress-bar">
+                                    <li class="calculator-is-active" data-target="100"><span>100</span></li>  
+                                    <li class="calculator-is-active" data-target="500"><span>500</span></li>  
+                                    <li class="calculator-not-pass"></li>
+                                    <li class="calculator-is-active" data-target="2500"><span>2500</span></li>  
+                                    <li class="calculator-is-empty"></li>
+                                </ol>
                             <div class="display-container">
                                 <p id="display-value"></p>
                                 <p>`+settings.label.total+`</p>
@@ -111,6 +118,7 @@
             calculate();
             //change value on select date change
             $('#date').on('change', function() {
+                changeProgress();
                 calculate();
             })
 
@@ -126,7 +134,33 @@
 
             (!$.isNumeric(amount) ? value = 0 : value = amount*date_value)
 
-            $('#display-value').html('<small>$</small>'+value);
+            $('#display-value').html('<small>$</small>'+value.toLocaleString());
+        }
+
+        //will change this approach
+        var changeProgress = function() {
+            date_value = $('#date').val();
+            var progress = $('li[data-target="' + date_value + '"]');
+            
+            var active = $('#calculator-progress-bar li[data-target]');
+            
+            if( parseInt($(active[0]).attr('data-target')) == parseInt(date_value) ) {
+                $(active[0]).removeClass().addClass('calculator-is-complete').nextAll('.calculator-is-complete').removeClass().addClass('calculator-is-active')
+            } else {
+                $('#calculator-progress-bar').find('.calculator-is-complete').removeClass().addClass('calculator-is-active');
+            }
+            
+            if( parseInt($(active[1]).attr('data-target')) == parseInt(date_value) ) {
+                $(active[1]).removeClass().addClass('calculator-is-complete').prevAll('.calculator-is-active').removeClass().addClass('calculator-is-complete')
+                $(active[2]).removeClass().addClass('calculator-is-complete').removeClass().addClass('calculator-is-active')
+            }
+            if( parseInt($(active[2]).attr('data-target')) == parseInt(date_value) ) {
+                $(active[2]).removeClass().addClass('calculator-is-complete').prevAll('.calculator-is-active').removeClass().addClass('calculator-is-complete')
+                $('#calculator-progress-bar').find('.calculator-not-pass').removeClass().addClass('calculator-is-pass')
+            } else {
+                $('#calculator-progress-bar').find('.calculator-is-pass').removeClass().addClass('calculator-not-pass')
+            }
+            
         }
 
         return this.init();
